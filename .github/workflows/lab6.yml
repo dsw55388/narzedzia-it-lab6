@@ -1,0 +1,33 @@
+name: Build and Upload EXE
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * 1'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Run install_resources.bat
+      run: ./install_resources.bat
+
+    - name: Build EXE
+      run: |
+        pyinstaller --onefile lab6.py
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4.3.4
+      with:
+        name: lab6
+        path: dist/lab6.exe
