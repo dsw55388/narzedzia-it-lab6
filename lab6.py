@@ -1,7 +1,14 @@
 import sys
 
 
+def read_file(file_path):
+
+    with open(file_path, 'r') as file:
+        return file.read()
+
+
 def get_file_extension(file_path):
+
     return file_path.split('.')[-1].lower()
 
 
@@ -16,3 +23,5 @@ if __name__ == "__main__":
     
     input_format = get_file_extension(input_path)
     output_format = get_file_extension(output_path)
+
+    input_data = read_file(input_path)
